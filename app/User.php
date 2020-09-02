@@ -28,6 +28,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
+    //relaciones
+    public function permissions()
+    {
+        return $this->belongsToMany('app\Permission');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany('app\Role')->withTimestamps();
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
