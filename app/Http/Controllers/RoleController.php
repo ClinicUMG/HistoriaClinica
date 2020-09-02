@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\Http\Requests\Role\StoreRequest;
+use App\Http\Requests\Role\UpdateRequest;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    //retornar vistas
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +17,21 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
+        
+        return view('theme.backoffice.pages.role.index',[
+             //todos los campos que tiene la tabla role
+            'roles'=> Role::all(),
+        ]);
+    }       
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+  
     public function create()
     {
-        //
+        return view('theme.backoffice.pages.role.create');
     }
 
     /**
@@ -33,9 +40,11 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //funcon de request para envio de datos
+    public function store(StoreRequest $request, Role $role)
     {
-        //
+        $role = $role->store($request);
+        return redirect()->route('backoffice.role.show',$role);
     }
 
     /**
@@ -44,9 +53,12 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
+    //retorna la vista show
     public function show(Role $role)
     {
-        //
+        return view('theme.backoffice.pages.role.show', [
+            'role' => $role, 
+        ]);
     }
 
     /**
@@ -57,7 +69,9 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        return view('theme.backoffice.pages.role.edit', [
+            'role' => $role, 
+        ]);
     }
 
     /**
@@ -67,9 +81,11 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    
+    public function update(UpdateRequest $request, Role $role)
     {
-        //
+        $role->my_update($request);
+        return redirect()->route('backoffice.role.show',$role);
     }
 
     /**
@@ -78,8 +94,12 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
+    //eliminacion del un rol
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        alert('exito','Rol eliminado','success')->showConfirmButton();
+        return redirect()->route('backoffice.role.index');
+
     }
 }
