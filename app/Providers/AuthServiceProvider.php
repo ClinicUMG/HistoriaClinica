@@ -12,8 +12,10 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
+    //policia para el modelo de role
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Role'=> 'App\Policies\RolePolicy',
     ];
 
     /**
