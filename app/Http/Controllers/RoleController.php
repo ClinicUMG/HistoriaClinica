@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\Permission;
 use App\Http\Requests\Role\StoreRequest;
 use App\Http\Requests\Role\UpdateRequest;
 use Illuminate\Http\Request;
+
+
 
 class RoleController extends Controller
 {
@@ -21,6 +24,7 @@ class RoleController extends Controller
         return view('theme.backoffice.pages.role.index',[
              //todos los campos que tiene la tabla role
             'roles'=> Role::all(),
+            
         ]);
     }       
     /**
@@ -55,9 +59,16 @@ class RoleController extends Controller
      */
     //retorna la vista show
     public function show(Role $role)
+    
+
     {
         return view('theme.backoffice.pages.role.show', [
+            'permissions' => Permission::all(),
             'role' => $role, 
+            'permissions' => $role->permissions
+            
+            
+            
         ]);
     }
 

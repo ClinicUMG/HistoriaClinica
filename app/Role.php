@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'descripcion'
+        'name', 'slug', 'description'
     ];
 
     //Relaciones
 public function permissions()
 {
-    return $this->hasMany('app\Permission');
+    return $this->hasMany('App\Permission');
 }
 public function users()
 {
-    return $this->belongsToMany('app\User');
+    return $this->belongsToMany('App\User');
 }
     //almacenamiento
 public function store($request)
@@ -34,8 +34,8 @@ public function my_update($request)
     $slug= Str::slug($request->name, '-');
     self::update($request->all() + [
         'slug'=> $slug,
-
     ]);
+    alert('exito','el rol se ha actualizado','success')->showConfirmButton();
 }
 //validacion
 

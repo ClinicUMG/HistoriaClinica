@@ -1,24 +1,24 @@
 
 @extends('theme.backoffice.layouts.admin')
   
-  @section('title','Roles del sistema')
+  @section('title','Permisos del sistema')
   
   @section('head')
   
   @endsection 
 
   @section('breadcrumbs')
-     <li><a href="{{ route ('backoffice.role.index')}}">Roles del Sistema</a></li>
+     <li><a href="{{ route ('backoffice.permission.index')}}">Permisos del Sistema</a></li>
   @endsection 
 
   @section('dropdown_settings')
-    <li><a href="{{ route ('backoffice.role.create')}}" class="grey-text text-darken-2">Crear Rol</a></li>
+     <li><a href="{{ route ('backoffice.permission.create')}}" class="grey-text text-darken-2">Crear Permiso</a></li>
   @endsection 
   
   @section('content')
   
   <div class="section">
-        <p class="caption"><strong>Roles del Sistema</strong></p>
+        <p class="caption"><strong>Permisos del Sistema</strong></p>
         <div class="divider"></div>
             <div id="basic-form" class="section">
                 <div class="row">
@@ -31,16 +31,18 @@
                                                 <th>Nombre</th>
                                                 <th>Slug</th>
                                                 <th>Descripcion</th>
+                                                <th>Rol</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($roles as $role)
+                                            @foreach($permissions as $permission)
                                                <tr>
-                                                    <td><a href="{{ route('backoffice.role.show', $role)}}">{{$role->name}} </a></td>
-                                                    <td>{{$role->slug }}</td>
-                                                    <td>{{$role->description }}</td>
-                                                    <td><a href="{{ route('backoffice.role.edit', $role)}}">Editar </a></td>
+                                                    <td><a href="{{ route('backoffice.permission.show', $permission)}}">{{$permission->name}} </a></td>
+                                                    <td>{{$permission->slug }}</td>
+                                                    <td>{{$permission->description }}</td>
+                                                    <td><a href="{{ route('backoffice.role.edit', $permission->role)}}">{{$permission->role->name}}</a></td>
+                                                    <td><a href="{{ route('backoffice.permission.edit', $permission)}}">Editar </a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

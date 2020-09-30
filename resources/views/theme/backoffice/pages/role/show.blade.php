@@ -6,6 +6,12 @@
   @section('head')
   
   @endsection 
+
+  @section('breadcrumbs')
+     <li><a href="{{ route ('backoffice.role.index')}}">Roles del Sistema</a></li>
+     <li>{{ $role->name }}</li>
+  @endsection 
+
   
   @section('content')
       <!--visualizacion de la tabla rol en el template -->
@@ -15,16 +21,54 @@
             <div id="basic-form" class="section">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card-panel">
-                            <h4 class="header2">Usuarios con el rol de {{$role->name }}</h4>
-                                <div class="row">
+                        <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Usuarios con el rol de {{$role->name }}</span>
                                     <p><strong>Slug: </strong>{{$role->slug}}</p>
-                                    <p><strong>Descripcion: </strong>{{$role->descripcion}}</p>
-                                    <p><a href="#" style="color: red"  onclick="enviar_formulario()">Eliminar</a></p>
+                                    <p><strong>Descripcion: </strong>{{$role->description}}</p>            
                                 </div>
+                                <div class="card-title">
+                                <a href="{{ route('backoffice.role.edit', $role) }}">EDITAR</a>
+                                <a href="#" style="color: red"  onclick="enviar_formulario()">Eliminar</a>
+                                </div>
+                                
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Permisos del Rol</span>    
+
+                            <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Slug</th>
+                                                <th>Descripcion</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($permissions as $permission)
+                                               <tr>
+                                                    <td><a href="{{ route('backoffice.permission.show', $permission)}}">{{$permission->name}} </a></td>
+                                                    <td>{{$permission->slug }}</td>
+                                                    <td>{{$permission->description }}</td>
+                                                    <td><a href="{{ route('backoffice.permission.edit', $permission)}}">Editar </a></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>          
+                                </div>
+                                
+                        </div>
+                    </div>
+                </div>
+
             </div>
     </div>
     <!--metodo para eliminar un rol -->

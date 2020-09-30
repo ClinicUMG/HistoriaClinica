@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\Permission;
 
-use App\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    //politicas para autorizacion en la base de datos
     public function authorize()
     {
         return true;
@@ -23,12 +21,12 @@ class StoreRequest extends FormRequest
      *
      * @return array
      */
-    //validacion de los dos campos que se tiene en la tabla rol
     public function rules()
     {
         return [
             'name'=> 'required|unique:roles|max:255',
             'description'=> 'required',
+            'role_id' => 'required|numeric'
         ];
     }
     // campos requerido en el formulario
@@ -38,6 +36,8 @@ class StoreRequest extends FormRequest
             'name.required' => 'El campo de nombre es requerido',
             'name.unique'=> 'El nombre ya esta ocupado',
             'description.required'=> 'la descripcion es requerida',
+            'role_id.required' => 'El campo del rol es requerido',
+            'role_id.numeric' => 'El formato no es correcto'
         ];
     }
 }

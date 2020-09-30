@@ -17,7 +17,7 @@ class CreatePermissionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('descripcion')->nullable();
+            $table->string('description')->nullable();
             $table->unsignedInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

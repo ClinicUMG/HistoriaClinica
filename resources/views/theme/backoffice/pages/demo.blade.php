@@ -4,7 +4,12 @@
 @section('title','Seminario')
 
 @section('head')
+@endsection 
 
+@section('breadcrumbs')
+@endsection 
+
+@section('dropdown_settings')
 @endsection 
 
 @section('content')

@@ -6,6 +6,13 @@
   @section('head')
   
   @endsection 
+
+  @section('breadcrumbs')
+     <li><a href="{{ route ('backoffice.role.index')}}">Roles del Sistema</a></li>
+     <li><a href="{{ route ('backoffice.role.show', $role)}}">{{ $role->name }}</a></li>
+     <li>Edición de rol</li>
+  @endsection 
+
   
   @section('content')
     <div class="section">
@@ -14,7 +21,8 @@
             <div id="basic-form" class="section">
                 <div class="row">
                     <div class="col s12 m8 offset-m2">
-                        <div class="card-panel">
+                        <div class="card">
+                        <div class="card-content">
                             <h4 class="header2">Editar Rol</h4>
                                 <div class="row">
                                     <form class="col s12" method="post" action="{{route('backoffice.role.update', $role)}}">
