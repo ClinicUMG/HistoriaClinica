@@ -3,6 +3,8 @@
 return [
 
     'admin_role' => env('ADMIN_ROLE', 'admin'),
+    'secretary_role' => env('SECRETARY_ROLE', 'secretario'),
+    'doctor_role' => env('DOCTOR_ROLE', 'medico'),
     'patient_role' => env('PATIENT_ROLE', 'paciente'),
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +84,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------

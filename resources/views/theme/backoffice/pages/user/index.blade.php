@@ -13,6 +13,7 @@
 
   @section('dropdown_settings')
     <li><a href="{{ route('backoffice.user.create')}}" class="grey-text text-darken-2">Crear Usuario</a></li>
+    <li><a href="{{ route('backoffice.user.import')}}" class="grey-text text-darken-2">Importar Usuarios</a></li>
   @endsection 
   
   @section('content')
@@ -36,9 +37,9 @@
                                         </thead>
                                         <tbody>
                                             @foreach($users as $user)
-                                               <tr>
+                                                <tr>
                                                     <td><a href="{{ route('backoffice.user.show', $user)}}">{{ $user->name}}</a></td>
-                                                    <td>{{ $user->dob}}</td>
+                                                    <td>{{ $user->age()}}</td>
                                                     <td>{{ $user->email}}</td>
                                                     <td><a href="{{ route('backoffice.user.edit', $user)}}">Editar</a></td>
                                                 </tr>

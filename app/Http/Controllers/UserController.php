@@ -1,13 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
+
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Permission;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +29,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('index', User::class);
         return view('theme.backoffice.pages.user.index',[
-            'users' => User::all(),
+            'users' => auth()->user()->visible_users()
         ]);
     }
 
@@ -27,7 +42,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', User::class);
+        return view('theme.backoffice.pages.user.create', [
+            'roles' => auth()->user()->visible_roles()
+        ]);
     }
 
     /**
@@ -36,9 +54,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request, User $user)
     {
-        //
+        $user = $user->store($request);
+        return redirect()->route('backoffice.user.show', $user);
     }
 
     /**
@@ -60,21 +79,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+        $this->authorize('update', $user);
+        $view = (isset($_GET['view'])) ? $_GET['view'] : null;
+        return view($user->edit_view($view), [
+            'user' => $user,
+            ]);
+        }
+        
+        /**
+         * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, User $user)
     {
-        //
+        $user->my_update($request);
+        $view = (isset($_GET['view'])) ? $_GET['view'] : null;
+        return redirect()->route($user->user_show(), $user);
     }
 
     /**
@@ -83,9 +108,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        
+        $user->delete();
+        alert('Éxito', 'Usuario Eliminado', 'success');
+        return redirect()->route('backoffice.user.index');
     }
     /**
      * Mostrar formulario para asignar rol
@@ -129,7 +156,41 @@ class UserController extends Controller
         return redirect()->route('backoffice.user.show', $user);
     }
 
+    /* Mostrar el formulario para importar Usuarios */
 
+    public function import()
+    {
+        return view('theme.backoffice.pages.user.import');
+    }
 
+    /* Importar usuarios desde una hoja de Excel */
 
+    public function make_import(Request $request)
+    {
+        Excel::import(new UsersImport, $request->file('excel'));
+        alert('Éxito', 'Usuarios Importados', 'success');
+        return redirect()->route('backoffice.user.index');
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('theme.frontoffice.pages.user.profile', [
+            'user' => $user,
+        ]);
+    }
+
+    public function edit_password()
+    {
+        $this->authorize('update_password', auth()->user());
+        return view('theme.frontoffice.pages.user.edit_password');
+    }
+    
+    public function change_password(ChangePasswordRequest $request)
+    {
+        $request->user()->password = Hash::make($request->password);
+        $request->user()->save();
+        alert('Éxito', 'Contraseña actualizada', 'success');
+        return redirect()->back();
+    }
 }

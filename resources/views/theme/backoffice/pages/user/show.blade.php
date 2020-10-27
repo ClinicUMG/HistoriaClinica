@@ -1,18 +1,22 @@
 
 @extends('theme.backoffice.layouts.admin')
-  
-  @section('title', $user->name)
-  
-  @section('head')
-  
-  @endsection 
 
-  @section('breadcrumbs')
-     <li><a href="{{ route ('backoffice.user.index')}}">Usuarios del Sistema</a></li>
-     <li>{{ $user->name }}</li>
-  @endsection 
+@section('title', $user->name)
 
-  
+@section('head')
+
+@endsection 
+
+@section('breadcrumbs')
+    <li><a href="{{ route ('backoffice.user.index')}}">Usuarios del Sistema</a></li>
+    <li>{{ $user->name }}</li>
+@endsection 
+
+@section('dropdown_settings')
+    <li><a href="{{ route('backoffice.user.edit', $user)}}" class="grey-text text-darken-2">Editar Usuario</a></li>
+@endsection 
+
+
   @section('content')
       <!--visualizacion de la tabla rol en el template -->
     <div class="section">
@@ -24,7 +28,7 @@
                         <div class="card">
                         <div class="card-content">
                             <span class="card-title">{{ $user->name }}</span>  
-
+                            <p><strong>Edad: </strong>{{$user->age()}}</p>
                         </div>
                                 <div class="card-action">
                                 <a href="{{ route('backoffice.user.edit', $user) }}">EDITAR</a>
