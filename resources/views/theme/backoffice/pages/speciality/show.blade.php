@@ -7,14 +7,14 @@
   
   @endsection 
 
-  @section('breadcrumbs')
-     <li><a href="{{ route ('backoffice.speciality.index')}}">Especialidades medicas</a></li>
-     <li><a href="" class="active">{{ $speciality->name }}</a></li>
-  @endsection 
+@section('breadcrumbs')
+    <li><a href="{{ route ('backoffice.speciality.index')}}">Especialidades médicas</a></li>
+    <li><a href="" class="active">{{ $speciality->name }}</a></li>
+@endsection
 
-  @section('dropdown_settings')
+@section('dropdown_settings')
     <li><a href="{{ route ('backoffice.speciality.edit', $speciality)}}" class="grey-text text-darken-2">Editar especialidad</a></li>
-  @endsection 
+@endsection 
 
   @section('content')
       <!--visualizacion de la tabla rol en el template -->

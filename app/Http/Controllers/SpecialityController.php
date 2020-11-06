@@ -80,7 +80,7 @@ class SpecialityController extends Controller
     public function update(UpdateRequest $request, Speciality $speciality)
     {
         $speciality->my_update($request);
-        return redirect()->route('backoffice.speciality.show', $speciality)
+        return redirect()->route('backoffice.speciality.show', $speciality);
     }
 
     /**
@@ -91,6 +91,7 @@ class SpecialityController extends Controller
      */
     public function destroy(Speciality $speciality)
     {
-        //
+        $speciality->delete();
+        return redirect()->route('backoffice.speciality.index');
     }
 }

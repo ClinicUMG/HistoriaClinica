@@ -119,6 +119,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
+    public function has_speciality($id)
+    {
+        foreach ($this->specialities as $speciality) {
+            if ($speciality->id == $id) {
+                return true;
+            }
+            return false;
+        }
+    }
+
 //Recuperación de Información
     public function age()
     {
@@ -136,8 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if ($this->has_role(config('app.admin_role'))) {
             return $users = self::all();
-        } 
-        if ($this->has_role(config('app.secretary_role'))) {
+        } else if ($this->has_role(config('app.secretary_role'))) {
             $users = self::whereHas('roles', function($q){
                 $q->whereIn('slug', [
                     config('app.doctor_role'),
@@ -145,8 +154,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 ]);
             })->get();
             return $users;
-        }
-        if ($this->has_role(config('app.doctor_role'))) {
+        } else if ($this->has_role(config('app.doctor_role'))) {
             $users = self::whereHas('roles', function($q){
                 $q->whereIn('slug', [
                     config('app.patient_role')
@@ -167,6 +175,13 @@ class User extends Authenticatable implements MustVerifyEmail
             $roles = Role::where('slug', config('app.patient_role'))->get();
         }
         return $roles;
+    }
+
+    public function list_roles()
+    {
+        $roles = $this->roles->pluck('name')->toArray();
+        $string = implode(', ', $roles);
+        return $string;
     }
 
 //Otras operaciones

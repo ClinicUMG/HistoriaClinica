@@ -12,6 +12,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Permission;
 use App\User;
 use App\Role;
+use App\Speciality;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\HttpCache\Store;
@@ -143,7 +145,7 @@ class UserController extends Controller
         return view('theme.backoffice.pages.user.assign_permission', [
             'user' => $user,
             'roles' => $user->roles,
-            'permissions' => permission::all()
+            'permissions' => Permission::all()
         ]);
     }
             /**
@@ -154,6 +156,19 @@ class UserController extends Controller
         $user->permissions()->sync($request->permissions);
         alert('Exito', 'Permisos asignados', 'success');
         return redirect()->route('backoffice.user.show', $user);
+    }
+
+    public function assign_speciality(User $user)
+    {
+        return view('theme.backoffice.pages.user.assign_speciality', [
+            'user' => $user,
+            'specialities' => Speciality::all()
+        ]);
+    }
+
+    public function speciality_assignment(Request $request, User $user)
+    {
+        //
     }
 
     /* Mostrar el formulario para importar Usuarios */

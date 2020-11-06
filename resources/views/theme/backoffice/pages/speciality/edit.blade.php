@@ -8,7 +8,7 @@
   @endsection 
 
   @section('breadcrumbs')
-     <li><a href="{{ route ('backoffice.speciality.index')}}">Especialidades medicas</a></li>
+     <li><a href="{{ route ('backoffice.speciality.index')}}">Especialidades médicas</a></li>
      <li><a href="">{{ $speciality->name }}</a></li>
      <li><a href="" class="active">Editar especialidad</a></li>
     

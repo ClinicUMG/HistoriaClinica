@@ -19,7 +19,8 @@ class Speciality extends Model
     {
         return self::create($request->all());
     }
-    public function my_update($request);
+    
+    public function my_update ($request)
     {
         return self::update($request->all());
     }

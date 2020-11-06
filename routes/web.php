@@ -59,6 +59,10 @@ Route:: group(['middleware'=>['auth'], 'as'=>'backoffice.'],function(){
       ->name('user.permission_assignment');
 
     Route::resource('speciality', 'SpecialityController');
+    Route::get('user/{user}/assign_speciality', 'UserController@assign_speciality')
+      ->name('user.assign_speciality');
+    Route::post('user/{user}/speciality_assignment', 'UserController@speciality_assignment')
+      ->name('user.speciality_assignment');
 });
 
 Route::group(['as' => 'frontoffice.'], function(){
