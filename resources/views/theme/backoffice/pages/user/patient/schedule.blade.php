@@ -36,26 +36,32 @@
                                 </span>
                                 <form action="#" method="POST">
                                     {{ csrf_field() }}
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">people</i>
-                                            <select name="doctor">
-                                                <option value="1">Internista</option>
-                                                <option value="2">Pediatras</option>
-                                                <option value="3">Odontólogos</option>
-                                            </select>
-                                            <label>Selecciona la especialidad</label>
+
+                                    @if(Auth::user()->has_role(config('app.doctor_role')))
+                                       <input type="hidden" name="speciality" value="">
+                                       <input type="hidden" name="doctor" value="{{ Auth::id() }}">
+                                    @else
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">people</i>
+                                                <select name="speciality">
+                                                    <option value="1">Internista</option>
+                                                    <option value="2">Pediatras</option>
+                                                    <option value="3">Odontólogos</option>
+                                                </select>
+                                                <label>Selecciona la especialidad</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <i class="material-icons prefix">people</i>
-                                            <select name="doctor">
-                                                <option value=""></option>
-                                            </select>
-                                            <label>Selecciona al doctor</label>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">people</i>
+                                                <select name="doctor">
+                                                    <option value=""></option>
+                                                </select>
+                                                <label>Selecciona al doctor</label>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     <div class="row">
                                         <div class="input-field col s12 m6">
                                             <i class="material-icons prefix">today</i>

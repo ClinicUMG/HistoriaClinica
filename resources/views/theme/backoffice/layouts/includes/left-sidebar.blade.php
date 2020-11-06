@@ -63,7 +63,12 @@
             </a>
         </li>
 
-
+        <li class="bold">
+            <a href="{{ route ('backoffice.speciality.index')}}" class="waves-effect waves-cyan">
+                <i class="material-icons">local_hospital</i>
+                <span class="nav-text">Especialidades médicas</span>
+            </a>
+        </li>
 
 
         </ul>

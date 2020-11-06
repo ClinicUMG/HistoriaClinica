@@ -43,7 +43,9 @@ class PatientController extends Controller
 
     public function back_invoices(User $user)
     {
-        // return view('theme.backoffice.pages.user.patient.invoices');
+        return view('theme.backoffice.pages.user.patient.invoice', [
+            'user' => $user,
+        ]);
     }
 
 }
