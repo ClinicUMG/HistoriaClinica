@@ -45,6 +45,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany('App\Speciality')->withTimestamps();
     }
+    public function invoices()
+    {
+        return $this->hasMany('App\Invoice');
+    }
+    public function appointment()
+    {
+        return $this->belongsTo('App\Appointment');
+    }
 //Almacenamiento
 
     public function store($request)
@@ -184,6 +192,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $string;
     }
 
+    public function list_specialities()
+    {
+        $specialities= $this->specialities->pluck('name')->toArray();
+        $string = implode(',',$specialities);
+        return $string;
+    }
 //Otras operaciones
 
     public function verify_permission_integrity(array $roles)

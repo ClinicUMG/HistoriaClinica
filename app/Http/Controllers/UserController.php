@@ -168,7 +168,9 @@ class UserController extends Controller
 
     public function speciality_assignment(Request $request, User $user)
     {
-        //
+        $user->specialities()->sync($request->specialities);
+        alert('Éxito', 'Especialidades sincronizadas','success');
+        return redirect()->route('backoffice.user.show', $user);
     }
 
     /* Mostrar el formulario para importar Usuarios */

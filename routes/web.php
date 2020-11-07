@@ -80,6 +80,8 @@ Route::group(['as' => 'frontoffice.'], function(){
 
     Route::get('patient/schedule', 'PatientController@schedule')
       ->name('patient.schedule');
+    Route::get('patient/store_schedule', 'PatientController@store_schedule')
+      ->name('patient.store_schedule');
     Route::get('patient/appointments', 'PatientController@appointments')
       ->name('patient.appointments');
     Route::get('patient/prescriptions', 'PatientController@prescriptions')
@@ -93,3 +95,7 @@ Route::group(['as' => 'frontoffice.'], function(){
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' =>['auth'],'as' => 'ajax.'], function(){
+  Route::get('user_speciality', 'AjaxController@user_speciality')
+    ->name('user_speciality');
+});

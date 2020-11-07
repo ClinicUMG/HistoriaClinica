@@ -3,13 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Invoice;
+use App\Appointment;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
     public function schedule()
     {
-        return view('theme.frontoffice.pages.user.patient.schedule');
+        return view('theme.frontoffice.pages.user.patient.schedule',[
+           'specialities' =>  \App\Speciality::all(),
+        ]);
+    }
+
+    public function store_schedule(Request $request, Appointment $appointment, Invoice $invoice)
+    {
+      
+        $invoice = $invoice->store($request);
+        $appointment = $appointment->store($request, $invoice);
+        alert('Exito', 'Cita creada', 'success')->showConfirmButton();
+        return redirect()->route('frontoffice.patient.appointments');
     }
 
     public function back_schedule(User $user)
