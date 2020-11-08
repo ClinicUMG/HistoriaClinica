@@ -34,7 +34,9 @@ class PatientController extends Controller
 
     public function appointments()
     {
-        return view('theme.frontoffice.pages.user.patient.appointments');
+        return view('theme.frontoffice.pages.user.patient.appointments',[
+            'appointments' => user()->appointments
+        ]);
     }
 
     public function back_appointments(User $user)

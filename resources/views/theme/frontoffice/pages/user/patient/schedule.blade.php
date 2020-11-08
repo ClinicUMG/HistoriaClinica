@@ -107,7 +107,7 @@
                     }
             });
         });
-        doctor.change(function(){
+      /*   doctor.change(function(){
             date_picker.set({
                 disable:[
                     [2019,1,28]
@@ -121,6 +121,6 @@
                     [10,0],
                 ]
             });
-        }); 
+        }); */ 
     </script>
 @endsection

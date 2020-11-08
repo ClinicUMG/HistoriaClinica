@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\User;
 use App\InvoiceMeta;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -9,6 +10,8 @@ class Appointment extends Model
     protected $fillable = [
         'date', 'doctor_id', 'status', 'user_id', 'invoice_id'
     ];
+
+    protected $dates = ['date'];
     #relaciones
     public function invoice()
     {
@@ -21,6 +24,7 @@ class Appointment extends Model
     #almacenamiento
     public function store($request, $invoice)
     {
+        
         $date=Carbon::createFromFormat('Y-m-d H:i', $request->date_submit . ' ' . $request->time_submit);
         
         InvoiceMeta::create(['key' => 'doctor', 'value' => $request->doctor, 'invoice_id' => $invoice->id]);
@@ -32,5 +36,11 @@ class Appointment extends Model
             'user_id' => $request->user()->id,
             'invoice_id' => $invoice->id
         ]);
+    }
+    #recuperar informacion
+    public function doctor()
+    {
+        $doctor = User::find($this->doctor_id);
+        return $doctor;
     }
 }

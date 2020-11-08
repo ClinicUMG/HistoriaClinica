@@ -1,3 +1,4 @@
+
 @extends('theme.frontoffice.layouts.main')
 
 @section('title', 'Mis Citas')
@@ -23,18 +24,19 @@
                                     <th>ID</th>
                                     <th>Especialista</th>
                                     <th>Fecha</th>
-                                    <th>Hora</th>
                                     <th>Estado</th> {{--Finalizado, pagado, pendiente, cancelado--}}
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Carlos</td>
-                                    <td>15 de Noviembre 2020</td>
-                                    <td>12:00</td>
-                                    <td>Pendiente</td>
-                                </tr>
+                                
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Jose</td>
+                                        <td>28/11/2020</td>
+                                        <td>Pendiente</td>
+                                    </tr>
+                               
+                               
                             </tbody>
                         </table>
                     </div>

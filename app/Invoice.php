@@ -27,7 +27,7 @@ class Invoice extends Model
     #almacenamiento
     public function store($request)
     {
-        $invoice = self::create([
+        return self::create([
             'amount' => 500,
             'status' => 'pending',
             'user_id' => $request->user()->id
